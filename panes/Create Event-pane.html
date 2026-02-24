@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Create Event</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .page-wrapper{ max-width:820px; margin:40px auto; padding:20px; }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <h1 style="margin-bottom:12px; font-family: 'Poppins', sans-serif;">Create Event</h1>
+
+    <form class="event-form" action="#" method="post" enctype="multipart/form-data">
+      <div class="form-row full">
+        <label class="field-label">Title</label>
+        <input class="input" type="text" name="title" required placeholder="Event title" />
+      </div>
+
+      <div class="form-row full">
+        <label class="field-label">Description</label>
+        <textarea class="input about" name="description" required placeholder="Describe your event in detail"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label class="field-label">Date</label>
+          <input class="input" type="date" name="date" required />
+        </div>
+        <div>
+          <label class="field-label">Location</label>
+          <input class="input" type="text" name="location" required placeholder="Example: Mtku Hialu hall" />
+        </div>
+      </div>
+
+      <div class="form-row full">
+        <label class="field-label">Contact Info</label>
+        <input class="input" type="text" name="contact" required placeholder="Email, phone or Telegram " />
+      </div>
+
+      <div class="form-row full image-upload">
+        <label class="field-label">Upload Your Poster/image</label>
+        <input class="file-input" type="file" name="poster" accept="image/*" id="posterInput" />
+        <img id="posterPreview" alt="Poster preview" style="display:none; margin-top:10px; max-width:300px; border-radius:6px;" />
+      </div>
+
+      <div style="margin-top:14px;">
+        <button class="btn btn-green" type="submit">Post Event</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const input = document.getElementById('posterInput');
+    const preview = document.getElementById('posterPreview');
+    input.addEventListener('change', e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) { preview.style.display = 'none'; preview.src = ''; return; }
+      const url = URL.createObjectURL(file);
+      preview.src = url; preview.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
