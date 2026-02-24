@@ -1,48 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mu Event Web </title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mu Event Web </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
-<div class="container">
-        <nav>
-            <div class="navbar">
-                <div class="instagram-text-logo">
-                    <link decoding="async" src="https://www.flaticon.com/free-icon/event_9783268" id="white-color" alt="">
-                </div>
-                <div class="sub-section" >
-                    <i class="fa-solid fa-house" ></i>
-                    <a href="#">Home</a>
-                </div>
-                <div class="sub-section" >
-                    <i class="fa-solid fa-square-plus"></i>
-                    <a href="#">Create Event</a>
-                </div>
-                <div class="sub-section" >
-                    <i class="fa-solid  fa-clapperboard"></i>
-                    <a href="#">My Posts</a>
-                </div>
-                <div class="sub-section">
-                    <i class="fa-solid fa-user"></i>
-                    <a href="#">Profile Setting</a>
-                </div>
-                <div class="sub-section">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <a href="#">Logout</a>
-                </div>
-                
-                <div class="menu-section " id="hidden">
-                    <i class="fa-solid fa-bars"></i>
-                    <a href="#">More</a>
-                </div>
-            </div>
+<div class="container main-layout">
+        <aside class="navbar">
+                <a class="instagram-text-logo" href="panes/home-pane.html" target="contentFrame">
+                        <link decoding="async" src="https://www.flaticon.com/free-icon/event_9783268" id="white-color" alt="">
+                </a>
+                <a class="sub-section" href="panes/home-pane.html" target="contentFrame">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                </a>
+                <a class="sub-section" href="panes/Create Event-pane.html" target="contentFrame">
+                        <i class="fa-solid fa-square-plus"></i>
+                        <span>Create Event</span>
+                </a>
+                <a class="sub-section" href="panes/myposts-pane.html" target="contentFrame">
+                        <i class="fa-solid  fa-clapperboard"></i>
+                        <span>My Posts</span>
+                </a>
+                <a class="sub-section" href="panes/profile-pane.html" target="contentFrame">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile Setting</span>
+                </a>
+                <a class="sub-section" href="panes/logout-pane.html" target="contentFrame">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Logout</span>
+                </a>
 
-       
+                <a class="menu-section" id="hidden" href="panes/more-pane.html" target="contentFrame">
+                        <i class="fa-solid fa-bars"></i>
+                        <span>More</span>
+                </a>
+        </aside>
+
+        <main class="center">
+                <iframe name="contentFrame" id="contentFrame" src="panes/home-pane.html" frameborder="0" loading="eager"></iframe>
+        </main>
+
+        <aside class="right-panel">
+                <div class="separator"></div>
+                <div class="right-content">
+                        <!-- Right side placeholder - you can add widgets or links here later -->
+                        <p style="padding:18px; color:var(--secod-font-color);">Right panel (place your widgets here)</p>
+                </div>
+        </aside>
+</div>
+
+<!-- iframe auto-resize script removed so iframe can show its own scrollbars -->
+
 </body>
 </html>
