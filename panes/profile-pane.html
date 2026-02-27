@@ -1,16 +1,213 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  <style>body{font-family: 'Poppins', sans-serif; padding:28px;}</style>
 </head>
-<body>
+<body class="create-event-body profile-pane-body">
   <div class="page-wrapper">
-    <h2>Profile Settings</h2>
-    <p style="margin-top:12px; color:var(--secod-font-color);">Profile settings placeholder.</p>
+    <section class="event-card profile-card-modern">
+      <header class="event-card__head">
+        <div>
+          <p class="eyebrow">Your space</p>
+          <h1>Profile</h1>
+          <p class="supporting">Keep your public info polished so guests know who is behind each event.</p>
+        </div>
+      </header>
+
+      <div class="profile-panels">
+        <div id="profile-view" class="profile-panel">
+          <div class="profile-summary">
+            <img src="https://via.placeholder.com/160" alt="Profile photo" class="profile-avatar">
+            <div>
+              <h2>User Name</h2>
+              <p class="bio">The description about the profile</p>
+              <p class="contact-line"><i class="fa-brands fa-telegram"></i><span>t.me/muevent</span></p>
+            </div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card">
+              <strong>12</strong>
+              <span>Events</span>
+            </div>
+            <div class="stat-card">
+              <strong>30</strong>
+              <span>Posts</span>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button class="btn btn-solid" type="button" onclick="toggleEdit()">Edit Profile</button>
+          </div>
+
+          <div class="contact-block">
+            <p class="contact-line"><i class="fa-solid fa-envelope"></i><span>user@gmail.com</span></p>
+            <p class="contact-line"><i class="fa-solid fa-phone"></i><span>+251 9.............</span></p>
+          </div>
+        </div>
+
+        <div id="profile-edit" class="profile-panel" hidden>
+          <form class="profile-form" action="#" method="post" enctype="multipart/form-data">
+            <div class="upload-field profile-upload-field full-span">
+              <span class="field-label">Profile Picture</span>
+              <div class="upload-dropzone profile-upload-dropzone" id="avatarDropzone" tabindex="0">
+                <div class="upload-icon" aria-hidden="true"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                <div>
+                  <p class="upload-title">Drag & drop your avatar</p>
+                  <p class="upload-subtitle">or <span class="upload-action">browse files</span> — PNG, JPG up to 3&nbsp;MB</p>
+                </div>
+              </div>
+              <input class="file-input" type="file" accept="image/*" id="avatarInput" hidden>
+              <p class="upload-status" data-avatar-status>Awaiting upload</p>
+              <img id="avatarPreview" alt="Avatar preview" class="profile-upload-preview">
+            </div>
+
+            <label class="field-control full-span">
+              <span class="field-label">Full Name</span>
+              <input class="input modern-input" type="text" placeholder="Name">
+            </label>
+
+            <label class="field-control full-span">
+              <span class="field-label">Department</span>
+              <input class="input modern-input" type="text" placeholder="Department">
+            </label>
+
+            <label class="field-control full-span">
+              <span class="field-label">Bio</span>
+              <textarea class="input modern-input about" placeholder="Add a short story or mission statement."></textarea>
+            </label>
+
+            <label class="field-control">
+              <span class="field-label">Social Link</span>
+              <input class="input modern-input" type="text" placeholder="@example">
+            </label>
+
+            <label class="field-control">
+              <span class="field-label">Phone</span>
+              <input class="input modern-input" type="tel" placeholder="+251 ...">
+            </label>
+
+            <label class="field-control">
+              <span class="field-label">New Password</span>
+              <input class="input modern-input" type="password" placeholder="Enter new password">
+            </label>
+
+            <label class="field-control">
+              <span class="field-label">Confirm Password</span>
+              <input class="input modern-input" type="password" placeholder="Re-enter password">
+            </label>
+
+            <div class="form-actions">
+              <button class="btn btn-outline" type="button" onclick="toggleEdit()">Cancel</button>
+              <button class="btn btn-solid" type="submit">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   </div>
+
+  <script>
+    function toggleEdit() {
+      const view = document.getElementById('profile-view');
+      const edit = document.getElementById('profile-edit');
+      const showingView = !view.hasAttribute('hidden');
+
+      if (showingView) {
+        view.setAttribute('hidden', '');
+        edit.removeAttribute('hidden');
+      } else {
+        edit.setAttribute('hidden', '');
+        view.removeAttribute('hidden');
+      }
+    }
+
+    const avatarDropzone = document.getElementById('avatarDropzone');
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarStatus = document.querySelector('[data-avatar-status]');
+    const avatarPreview = document.getElementById('avatarPreview');
+
+    const resetAvatarPreview = () => {
+      if (avatarPreview) {
+        avatarPreview.src = '';
+        avatarPreview.style.display = 'none';
+      }
+      if (avatarStatus) {
+        avatarStatus.textContent = 'Awaiting upload';
+      }
+    };
+
+    const showAvatarPreview = file => {
+      if (avatarPreview) {
+        const url = URL.createObjectURL(file);
+        avatarPreview.src = url;
+        avatarPreview.style.display = 'block';
+      }
+      if (avatarStatus) {
+        avatarStatus.textContent = `Loaded ${file.name}`;
+      }
+    };
+
+    if (avatarDropzone && avatarInput) {
+      avatarInput.addEventListener('change', e => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) {
+          resetAvatarPreview();
+          return;
+        }
+        showAvatarPreview(file);
+      });
+
+      ['dragenter', 'dragover'].forEach(evt => {
+        avatarDropzone.addEventListener(evt, e => {
+          e.preventDefault();
+          e.stopPropagation();
+          avatarDropzone.classList.add('is-dragover');
+        });
+      });
+
+      ['dragleave', 'dragend', 'drop'].forEach(evt => {
+        avatarDropzone.addEventListener(evt, e => {
+          e.preventDefault();
+          e.stopPropagation();
+          avatarDropzone.classList.remove('is-dragover');
+        });
+      });
+
+      avatarDropzone.addEventListener('drop', e => {
+        const dt = e.dataTransfer;
+        if (!dt || !dt.files.length) {
+          resetAvatarPreview();
+          return;
+        }
+        const files = dt.files;
+        const [file] = files;
+        try {
+          avatarInput.files = files;
+        } catch (err) {
+          if (window.DataTransfer) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            avatarInput.files = dataTransfer.files;
+          }
+        }
+        showAvatarPreview(file);
+      });
+
+      avatarDropzone.addEventListener('click', () => avatarInput.click());
+      avatarDropzone.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          avatarInput.click();
+        }
+      });
+
+      resetAvatarPreview();
+    }
+  </script>
 </body>
 </html>
