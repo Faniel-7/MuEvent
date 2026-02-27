@@ -5,62 +5,152 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Create Event</title>
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    .page-wrapper{ max-width:820px; margin:40px auto; padding:20px; }
-  </style>
 </head>
-<body>
+<body class="create-event-body">
   <div class="page-wrapper">
-    <h1 style="margin-bottom:12px; font-family: 'Poppins', sans-serif;">Create Event</h1>
-
-    <form class="event-form" action="#" method="post" enctype="multipart/form-data">
-      <div class="form-row full">
-        <label class="field-label">Title</label>
-        <input class="input" type="text" name="title" required placeholder="Event title" />
-      </div>
-
-      <div class="form-row full">
-        <label class="field-label">Description</label>
-        <textarea class="input about" name="description" required placeholder="Describe your event in detail"></textarea>
-      </div>
-
-      <div class="form-row">
+    <section class="event-card">
+      <header class="event-card__head">
         <div>
-          <label class="field-label">Date</label>
-          <input class="input" type="date" name="date" required />
+          <p class="eyebrow">Plan effortlessly</p>
+          <h1>Create Event</h1>
+          <p class="supporting">Share the essentials so guests know exactly what to expect.</p>
         </div>
-        <div>
-          <label class="field-label">Location</label>
-          <input class="input" type="text" name="location" required placeholder="Example: Mtku Hialu hall" />
+      </header>
+
+      <form class="event-form modern-event-form" action="#" method="post" enctype="multipart/form-data">
+        <div class="form-grid">
+          <label class="field-control full-span">
+            <span class="field-label">Title</span>
+            <input class="input modern-input" type="text" name="title" required placeholder="Give your gathering a standout name" />
+          </label>
+
+          <label class="field-control full-span">
+            <span class="field-label">Description</span>
+            <textarea class="input modern-input about" name="description" required placeholder="Describe the vibe, agenda, special guests and anything attendees should bring."></textarea>
+          </label>
+
+          <label class="field-control">
+            <span class="field-label">Date</span>
+            <input class="input modern-input" type="date" name="date" required />
+          </label>
+
+          <label class="field-control">
+            <span class="field-label">Location</span>
+            <input class="input modern-input" type="text" name="location" required placeholder="Example: Mtku Hialu Hall" />
+          </label>
+
+          <label class="field-control">
+            <span class="field-label">Contact Info</span>
+            <input class="input modern-input" type="text" name="contact" required placeholder="Email, phone or Telegram" />
+          </label>
+
+          <label class="field-control">
+            <span class="field-label">Category</span>
+            <select class="input modern-input" name="category">
+              <option>Meetup</option>
+              <option>Workshop</option>
+              <option>Concert</option>
+              <option>Charity</option>
+              <option>Other</option>
+            </select>
+          </label>
         </div>
-      </div>
 
-      <div class="form-row full">
-        <label class="field-label">Contact Info</label>
-        <input class="input" type="text" name="contact" required placeholder="Email, phone or Telegram " />
-      </div>
+        <div class="upload-field">
+          <span class="field-label">Poster / Cover Image</span>
+          <div class="upload-dropzone" id="posterDropzone" tabindex="0">
+            <div class="upload-icon" aria-hidden="true">+</div>
+            <div>
+              <p class="upload-title">Drag & drop your artwork</p>
+              <p class="upload-subtitle">or <span class="upload-action">browse files</span> — PNG, JPG up to 5 MB</p>
+            </div>
+          </div>
+          <input class="file-input" type="file" name="poster" accept="image/*" id="posterInput" hidden />
+          <p class="upload-status" data-upload-status>Awaiting upload</p>
+          <img id="posterPreview" alt="Poster preview" class="upload-preview" />
+        </div>
 
-      <div class="form-row full image-upload">
-        <label class="field-label">Upload Your Poster/image</label>
-        <input class="file-input" type="file" name="poster" accept="image/*" id="posterInput" />
-        <img id="posterPreview" alt="Poster preview" style="display:none; margin-top:10px; max-width:300px; border-radius:6px;" />
-      </div>
-
-      <div style="margin-top:14px;">
-        <button class="btn btn-green" type="submit">Post Event</button>
-      </div>
-    </form>
+        <div class="form-actions">
+          <button class="btn btn-outline" type="button">Discard</button>
+          <button class="btn btn-solid" type="submit">Post Event</button>
+        </div>
+      </form>
+    </section>
   </div>
 
   <script>
-    const input = document.getElementById('posterInput');
+    const dropZone = document.getElementById('posterDropzone');
+    const posterInput = document.getElementById('posterInput');
     const preview = document.getElementById('posterPreview');
-    input.addEventListener('change', e => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) { preview.style.display = 'none'; preview.src = ''; return; }
+    const statusText = document.querySelector('[data-upload-status]');
+
+    const resetPreview = () => {
+      preview.src = '';
+      preview.style.display = 'none';
+      statusText.textContent = 'Awaiting upload';
+    };
+
+    const showPreview = file => {
       const url = URL.createObjectURL(file);
-      preview.src = url; preview.style.display = 'block';
+      preview.src = url;
+      preview.style.display = 'block';
+      statusText.textContent = `Loaded ${file.name}`;
+    };
+
+    posterInput.addEventListener('change', e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) {
+        resetPreview();
+        return;
+      }
+      showPreview(file);
     });
+
+    ['dragenter', 'dragover'].forEach(evt => {
+      dropZone.addEventListener(evt, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.add('is-dragover');
+      });
+    });
+
+    ['dragleave', 'dragend', 'drop'].forEach(evt => {
+      dropZone.addEventListener(evt, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.classList.remove('is-dragover');
+      });
+    });
+
+    dropZone.addEventListener('drop', e => {
+      const dt = e.dataTransfer;
+      if (!dt || !dt.files.length) {
+        resetPreview();
+        return;
+      }
+      const files = dt.files;
+      const [file] = files;
+      try {
+        posterInput.files = files;
+      } catch (err) {
+        if (window.DataTransfer) {
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(file);
+          posterInput.files = dataTransfer.files;
+        }
+      }
+      showPreview(file);
+    });
+
+    dropZone.addEventListener('click', () => posterInput.click());
+    dropZone.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        posterInput.click();
+      }
+    });
+
+    resetPreview();
   </script>
 </body>
 </html>
