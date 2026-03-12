@@ -1,15 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
-/* font-family: 'Archivo', sans-serif;
-font-family: 'Inconsolata', monospace;
-font-family: 'Merriweather', serif;
-font-family: 'Poppins', sans-serif;
-font-family: 'Roboto', sans-serif;
-font-family: 'Signika', sans-serif; */
-/* Elixia webfont - add your font files to css/fonts/ (recommended names below)
-   Example files you can place: css/fonts/Elixia-Regular.woff2, .woff, or .ttf
-   If you don't have the files, the site will fall back to the next fonts.
-*/
+
 @font-face {
     font-family: 'Elixia';
     src: url('fonts/Elixia-Regular.woff2') format('woff2'),
